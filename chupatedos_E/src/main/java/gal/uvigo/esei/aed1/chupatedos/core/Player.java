@@ -9,7 +9,7 @@ public class Player {
     private Stack <Card> cards;
     
  
-    public Player(String nombre){
+    public Player(String name){
         this.name = name;
         this.cards = new LinkedStack<>();
     }
