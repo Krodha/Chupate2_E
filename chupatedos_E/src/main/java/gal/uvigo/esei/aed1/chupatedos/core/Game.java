@@ -28,7 +28,15 @@ public class Game {
           this.players[i] = player;
       }
 
-
+      this.deckOfCards.shuffle();
+      
+      for (int i = 0; i < this.numOfPlayers; i++) {
+          for (int j = 0; j < 7; j++) {
+              this.players[i].addCard(this.deckOfCards.popCard());
+          }          
+      }
+      
+      // this.deckOfCards.getTopCard(); ToDo
 
   }
 
