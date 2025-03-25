@@ -1,29 +1,46 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
-import java.util.Stack;
-
-
+import es.uvigo.esei.aed1.tads.stack.LinkedStack;
+import es.uvigo.esei.aed1.tads.stack.Stack;
 
 public class DeckOfCards {
-    private Stack<Card> stack;
-    
-    public void shuffle() {
-        Card[] cards = new Card[this.stack.size()];
-        int index = 0;
-        
-        while (!this.stack.isEmpty()) {
-            cards[index++] = this.stack.pop();
-        }
-        
-        for (int i = 0; i < cards.length; i++) {
-            cards[i] = cards[(int)Math.random() * cards.length - 1];
-        }
-        
-        for (int i = 0; i < cards.length; i++) {
-            this.stack.push(cards[i]);
-            
+
+    Stack<Card> deckOfCards = new LinkedStack<>();
+
+    public DeckOfCards() {
+        for (int i = 0; i < Card.values().length; i++) {
+            deckOfCards.push(Card.values()[i]);
         }
     }
 
+    public void shuffle() {
+        Card[] cards = new Card[this.deckOfCards.size()];
+        int index = 0;
+
+        while (!this.deckOfCards.isEmpty()) {
+            cards[index++] = this.deckOfCards.pop();
+        }
+
+        for (int i = 0; i < cards.length; i++) {
+            cards[i] = cards[(int) Math.random() * cards.length - 1];
+        }
+
+        for (int i = 0; i < cards.length; i++) {
+            this.deckOfCards.push(cards[i]);
+
+        }
+    }
+
+    public Card popCard(Card card) {
+        return deckOfCards.pop();
+    }
+
+    public void addCard(Card newCard) {
+        deckOfCards.push(newCard);
+    }
+
+    public Card getTopCard() {
+        return deckOfCards.top();
+    }
 
 }
