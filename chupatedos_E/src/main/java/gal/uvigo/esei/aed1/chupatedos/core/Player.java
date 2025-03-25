@@ -5,18 +5,23 @@ import java.util.Stack;
 
 
 public class Player {
-    private String nombre;
+    private String name;
     private Stack <Card> cards;
     
  
     public Player(String nombre){
-        this.nombre = nombre;
+        this.name = name;
         this.cards = new LinkedStack<>();
     }
 
     public Stack<Card> getCards() {
         return cards;
     }
+
+    public String getName() {
+        return name;
+    }
+    
     
     public void addCard(Card card){
         if(cards.size() >= 7){
