@@ -22,7 +22,10 @@ public class DeckOfCards {
         }
 
         for (int i = 0; i < cards.length; i++) {
-            cards[i] = cards[(int) Math.random() * cards.length - 1];
+            Card aux = cards[i];
+            int j = (int)(Math.random() * cards.length - 1);
+            cards[i] = cards[j];
+            cards[j] = aux;
         }
 
         for (int i = 0; i < cards.length; i++) {
