@@ -9,13 +9,13 @@ public class Game {
     private Player[] players;
     private DeckOfCards deckOfCards;
     private Table table;
-    
+
     public Game(IU iu) {
         this.iu = iu;
         this.numOfPlayers = 0;
         this.players = null;
         this.deckOfCards = new DeckOfCards();
-        this.table = new Table(this,this.deckOfCards);
+        this.table = new Table(this, this.deckOfCards);
     }
 
     /**
@@ -38,13 +38,13 @@ public class Game {
                 this.players[i].addCard(this.deckOfCards.popCard());
             }
         }
-        
+
         this.table.setFaceUpCard(this.deckOfCards.getTopCard());
 
         iu.displayMessage("Carta sobre la mesa: " + deckOfCards.getTopCard());
         iu.displayMessage("Número de cartas boca arriba: " + table.getNumCardsTable());
-        iu.displayMessage("Cartas restantes sin repartir: " + table.remainingCards());
-        iu.displayMessage("Cartas de los jugadores: " + table.playersHand());
+        iu.displayMessage("Cartas restantes sin repartir: " + deckOfCards.getSize());
+        iu.displayMessage("Cartas de los jugadores: " + playersHand());
     }
 
     public int getNumOfPlayers() {
@@ -57,6 +57,21 @@ public class Game {
 
     public Player getPlayer(int pos) {
         return players[pos];
+    }
+
+    public String playersHand() {
+
+        StringBuilder cadena = new StringBuilder();
+
+        for (int i = 0; numOfPlayers > i; i++) {
+
+            cadena.append(getPlayer(i).getName())
+                    .append(": ")
+                    .append(getPlayer(i).getCards())
+                    .append("\n");
+        }
+
+        return cadena.toString();
     }
 
 }
