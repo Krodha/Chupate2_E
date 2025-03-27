@@ -23,10 +23,7 @@ public class DeckOfCards {
 
         for (int i = 0; i < cards.length; i++) {
             Card aux = cards[i];
-//            int j = (int)(Math.random() * cards.length - 1); CAMBIO:
-//Si ponemos entre 0 y cards.length, se genera valor entre 0 y cartas.length-1 automáticamente, el segundo
-//número ya no viene incluído.
-              int j = (int)(Math.random() * cards.length);
+            int j = (int)Math.round(Math.random() * (cards.length - 1));
             cards[i] = cards[j];
             cards[j] = aux;
         }
