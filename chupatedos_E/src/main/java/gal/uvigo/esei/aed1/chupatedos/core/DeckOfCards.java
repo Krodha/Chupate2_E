@@ -23,7 +23,10 @@ public class DeckOfCards {
 
         for (int i = 0; i < cards.length; i++) {
             Card aux = cards[i];
-            int j = (int)(Math.random() * cards.length - 1);
+//            int j = (int)(Math.random() * cards.length - 1); CAMBIO:
+//Si ponemos entre 0 y cards.length, se genera valor entre 0 y cartas.length-1 automáticamente, el segundo
+//número ya no viene incluído.
+              int j = (int)(Math.random() * cards.length);
             cards[i] = cards[j];
             cards[j] = aux;
         }
@@ -34,7 +37,12 @@ public class DeckOfCards {
         }
     }
 
-    public Card popCard(Card card) {
+//    public Card popCard(Card card) {
+//        return deckOfCards.pop();
+//    }
+    //CAMBIO: No tiene parámetros.
+    
+    public Card popCard(){
         return deckOfCards.pop();
     }
 
