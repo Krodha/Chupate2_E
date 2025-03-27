@@ -6,6 +6,7 @@ public class Table {
     private DeckOfCards deckOfCards;
 //    private int cartasDeJugadores = 0; (CAMBIO)
     private Game game;
+    private Card faceUpCard;
     
     //CAMBIO:
     public Table (Game game, DeckOfCards deckOfCards){
@@ -13,6 +14,7 @@ public class Table {
         this.game = game;
         this.deckOfCards = deckOfCards;
         this.numCardsTable = 0;
+        this.faceUpCard = null;
         
     }
     //CAMBIO:
@@ -46,6 +48,14 @@ public class Table {
 //        }
 //    }
     //El método dice que devuelve Player, pero no devuelve nada. Lo cambio por método toString:
+    
+    public void setFaceUpCard(Card card) {
+        this.faceUpCard = card;
+    }
+    
+    public Card getFaceUpCard() {
+        return this.faceUpCard;
+    }
     
     public String playersHand(){
         
