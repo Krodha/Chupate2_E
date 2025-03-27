@@ -36,13 +36,13 @@ public class Game {
                 this.players[i].addCard(this.deckOfCards.popCard());
             }
         }
+        
+        this.table.setFaceUpCard(this.deckOfCards.getTopCard());
 
         iu.displayMessage("Carta sobre la mesa: " + deckOfCards.getTopCard());
         iu.displayMessage("Número de cartas boca arriba: " + table.getNumCardsTable());
         iu.displayMessage("Cartas restantes sin repartir: " + table.remainingCards());
         iu.displayMessage("Cartas de los jugadores: " + table.playersHand());
-
-        // this.deckOfCards.getTopCard(); ToDo
     }
 
     public int getNumOfPlayers() {
