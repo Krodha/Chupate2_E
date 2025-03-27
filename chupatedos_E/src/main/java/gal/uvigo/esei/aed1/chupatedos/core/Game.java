@@ -67,7 +67,7 @@ public class Game {
 
             cadena.append(getPlayer(i).getName())
                     .append(": ")
-                    .append(getPlayer(i).getCards())
+                    .append(getPlayer(i).showCards())
                     .append("\n");
         }
 
