@@ -44,7 +44,7 @@ public class Game {
         iu.displayMessage("Carta sobre la mesa: " + deckOfCards.getTopCard());
         iu.displayMessage("Número de cartas boca arriba: " + table.getNumCardsTable());
         iu.displayMessage("Cartas restantes sin repartir: " + deckOfCards.getSize());
-        iu.displayMessage("Cartas de los jugadores: " + playersHand());
+        iu.displayMessage("Cartas de los jugadores:\n" + playersHand());
     }
 
     public int getNumOfPlayers() {
