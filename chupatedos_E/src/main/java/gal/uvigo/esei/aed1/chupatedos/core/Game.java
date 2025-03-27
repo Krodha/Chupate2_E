@@ -8,6 +8,7 @@ public class Game {
     private int numOfPlayers;
     private Player[] players;
     private DeckOfCards deckOfCards;
+    private Table table;
     
     public Game(IU iu) {
         this.iu = iu;
