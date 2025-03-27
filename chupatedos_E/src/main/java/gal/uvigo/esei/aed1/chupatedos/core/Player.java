@@ -1,6 +1,6 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
-import java.util.Stack;
+import es.uvigo.esei.aed1.tads.stack.Stack;
 import es.uvigo.esei.aed1.tads.stack.LinkedStack;//CAMBIO
 
 
