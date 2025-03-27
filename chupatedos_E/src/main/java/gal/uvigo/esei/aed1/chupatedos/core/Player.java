@@ -1,12 +1,14 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
 import java.util.Stack;
+import es.uvigo.esei.aed1.tads.stack.LinkedStack;//CAMBIO
 
 
 
 public class Player {
     private String name;
     private Stack <Card> cards;
+    
     
  
     public Player(String name){
