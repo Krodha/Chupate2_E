@@ -11,4 +11,11 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>gal.uvigo.esei.aed1.chupatedos_plantilla.Chupatedos_plantilla</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>es.uvigo.esei.aed1</groupId>
+            <artifactId>tads</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+    </dependencies>
 </project>
