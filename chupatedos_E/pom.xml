@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <exec.mainClass>gal.uvigo.esei.aed1.chupatedos_plantilla.Chupatedos_plantilla</exec.mainClass>
+        <exec.mainClass>gal.uvigo.esei.aed1.chupatedos.iu.Main</exec.mainClass>
     </properties>
     <repositories>
 
