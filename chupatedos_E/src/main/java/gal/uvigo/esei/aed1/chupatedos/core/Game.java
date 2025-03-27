@@ -23,11 +23,11 @@ public class Game {
      */
     public void play() {
         do {
-            this.numOfPlayers = iu.readNumber("Cuantos jugadores van a jugar? (Entre 2 y 5)");
+            this.numOfPlayers = iu.readNumber("Cuantos jugadores van a jugar? (Entre 2 y 5): ");
         } while (this.numOfPlayers < 2 || this.numOfPlayers > 5);
         players = new Player[this.numOfPlayers];
         for (int i = 0; i < this.numOfPlayers; i++) {
-            Player player = new Player(iu.readString("Nombre del jugador " + (i + 1) + " :"));
+            Player player = new Player(iu.readString("Nombre del jugador " + (i + 1) + " : "));
             this.players[i] = player;
         }
 
