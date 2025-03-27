@@ -5,7 +5,7 @@ import es.uvigo.esei.aed1.tads.stack.Stack;
 
 public class DeckOfCards {
 
-    Stack<Card> deckOfCards = new LinkedStack<>();
+    private Stack<Card> deckOfCards = new LinkedStack<>();
 
     public DeckOfCards() {
         for (int i = 0; i < Card.values().length; i++) {
@@ -49,6 +49,10 @@ public class DeckOfCards {
 
     public Card getTopCard() {
         return deckOfCards.top();
+    }
+    
+    public int getSize() {
+        return this.deckOfCards.size();
     }
 
 }
