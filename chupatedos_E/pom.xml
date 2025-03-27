@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>gal.uvigo.esei.aed1</groupId>
-    <artifactId>chupatedos_plantilla</artifactId>
+    <artifactId>chupatedos_1entrega</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
@@ -11,11 +11,37 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>gal.uvigo.esei.aed1.chupatedos_plantilla.Chupatedos_plantilla</exec.mainClass>
     </properties>
+    <repositories>
+
+        <repository>
+            <id>sing-maven-releases</id>
+            <name>SING Maven Releases</name>
+            <url>https://maven.sing-group.org/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>sing-maven-snapshots</id>
+            <name>SING Maven Snapshots</name>
+            <url>https://maven.sing-group.org/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>es.uvigo.esei.aed1</groupId>
             <artifactId>tads</artifactId>
-            <version>1.0.10</version>
+            <version>1.0.12</version>
         </dependency>
     </dependencies>
 </project>
