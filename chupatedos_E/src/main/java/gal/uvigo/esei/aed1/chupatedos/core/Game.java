@@ -41,7 +41,7 @@ public class Game {
 
         this.table.setFaceUpCard(this.deckOfCards.popCard());
 
-        iu.displayMessage("Carta sobre la mesa: " + deckOfCards.getTopCard());
+        iu.displayMessage("Carta sobre la mesa: " + this.table.getFaceUpCard());
         iu.displayMessage("Número de cartas boca arriba: " + table.getNumCardsTable());
         iu.displayMessage("Cartas restantes sin repartir: " + deckOfCards.getSize());
         iu.displayMessage("Cartas de los jugadores:\n" + playersHand());
