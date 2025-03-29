@@ -15,7 +15,7 @@ public class Game {
         this.numOfPlayers = 0;
         this.players = null;
         this.deckOfCards = new DeckOfCards();
-        this.table = new Table(this, this.deckOfCards);
+        this.table = new Table();
     }
 
     /**

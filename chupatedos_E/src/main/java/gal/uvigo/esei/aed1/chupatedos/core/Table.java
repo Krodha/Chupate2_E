@@ -5,10 +5,9 @@ public class Table {
     private int numCardsTable;
     private Card faceUpCard;
 
-    public Table(Game game, DeckOfCards deckOfCards) {
+    public Table() {
         this.numCardsTable = 0;
         this.faceUpCard = null;
-
     }
 
     public boolean isEmpty() {
