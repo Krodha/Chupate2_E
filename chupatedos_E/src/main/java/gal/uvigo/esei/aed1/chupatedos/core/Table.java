@@ -26,6 +26,4 @@ public class Table {
     public Card getFaceUpCard() {
         return this.faceUpCard;
     }
-
-    //No hay que hacer ningún cambio al llamarlo
 }

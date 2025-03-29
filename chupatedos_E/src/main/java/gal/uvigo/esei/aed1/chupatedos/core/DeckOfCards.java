@@ -30,14 +30,8 @@ public class DeckOfCards {
 
         for (int i = 0; i < cards.length; i++) {
             this.deckOfCards.push(cards[i]);
-
         }
     }
-
-//    public Card popCard(Card card) {
-//        return deckOfCards.pop();
-//    }
-    //CAMBIO: No tiene parámetros.
     
     public Card popCard(){
         return deckOfCards.pop();
