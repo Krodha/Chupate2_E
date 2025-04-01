@@ -6,15 +6,13 @@ import es.uvigo.esei.aed1.tads.stack.LinkedStack;//CAMBIO
 public class Player {
 
     private String name;
-    private Stack<Card> cards;
+    private Card[] cards;
+    private int numCards;
 
     public Player(String name) {
         this.name = name;
-        this.cards = new LinkedStack<>();
-    }
-
-    public Stack<Card> getCards() {
-        return cards;
+        this.cards = new Card[7];
+        this.numCards = 0;
     }
 
     public String getName() {
@@ -22,23 +20,18 @@ public class Player {
     }
 
     public void addCard(Card card) {
-        if (cards.size() >= 7) {
-            throw new IllegalArgumentException("The stack is full. Can't add more cards");
+        if (this.numCards >= 7) {
+            throw new IllegalArgumentException("The array is full. Can't add more cards");
         }
-        cards.push(card);
+        
+        cards[this.numCards++] = card;
     }
 
     public String showCards() {
-        Stack<Card> aux = new LinkedStack<>();
         StringBuilder sb = new StringBuilder();
 
-        while (!cards.isEmpty()) {
-            aux.push(cards.pop());
-        }
-
-        while (!aux.isEmpty()) {
-            sb.append(aux.top().toString()).append(", ");
-            cards.push(aux.pop());
+        for (int i = 0; i < this.numCards; i++) {
+            sb.append(this.cards[i].toString()).append(", ");
         }
 
         return sb.toString();
