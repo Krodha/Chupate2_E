@@ -1,8 +1,5 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
-import es.uvigo.esei.aed1.tads.stack.Stack;
-import es.uvigo.esei.aed1.tads.stack.LinkedStack;//CAMBIO
-
 public class Player {
 
     private String name;
