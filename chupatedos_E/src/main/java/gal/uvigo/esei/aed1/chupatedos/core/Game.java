@@ -51,10 +51,6 @@ public class Game {
         return numOfPlayers;
     }
 
-    public Player[] getPlayers() {
-        return players;
-    }
-
     public Player getPlayer(int pos) {
         return players[pos];
     }
