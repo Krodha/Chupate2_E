@@ -35,7 +35,7 @@ public class Game {
         Player[] players = new Player[this.numOfPlayers];
         
         for (int i = 0; i < this.numOfPlayers; i++) {
-            this.players[i] = new Player(names[i]);
+            players[i] = new Player(names[i]);
         }
         
         return players;
