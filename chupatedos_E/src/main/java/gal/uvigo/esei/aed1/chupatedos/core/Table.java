@@ -1,28 +1,28 @@
 package gal.uvigo.esei.aed1.chupatedos.core;
 
-public class Table {
+import es.uvigo.esei.aed1.tads.stack.LinkedStack;
+import es.uvigo.esei.aed1.tads.stack.Stack;
 
-    private int numCardsTable;
-    private Card faceUpCard;
+public class Table {
+    private Stack<Card> cards;
 
     public Table() {
-        this.numCardsTable = 0;
-        this.faceUpCard = null;
+        this.cards = new LinkedStack<>();
     }
 
     public boolean isEmpty() {
-        return this.numCardsTable == 0;
+        return this.cards.size() == 0;
     }
 
     public int getNumCardsTable() {
-        return numCardsTable;
+        return this.cards.size();
     }
 
-    public void setFaceUpCard(Card card) {
-        this.faceUpCard = card;
+    public void pushCard(Card card) {
+        this.cards.push(card);
     }
 
     public Card getFaceUpCard() {
-        return this.faceUpCard;
+        return this.cards.top();
     }
 }
