@@ -39,7 +39,7 @@ public class Game {
             }
         }
 
-        this.table.setFaceUpCard(this.deckOfCards.popCard());
+        this.table.pushCard(this.deckOfCards.popCard());
 
         iu.displayMessage("Carta sobre la mesa: " + this.table.getFaceUpCard());
         iu.displayMessage("Número de cartas boca arriba: " + table.getNumCardsTable());
