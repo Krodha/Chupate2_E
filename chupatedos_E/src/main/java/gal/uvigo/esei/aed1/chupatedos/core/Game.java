@@ -13,29 +13,32 @@ public class Game {
     public Game(IU iu) {
         this.iu = iu;
         this.numOfPlayers = 0;
-        this.players = null;
         this.deckOfCards = new DeckOfCards();
         this.table = new Table();
+        this.players = this.createPlayers();
     }
 
     /**
      * Metodo principal para jugar
      */
     public void play() {
-        do {
-            this.numOfPlayers = iu.readNumber("Cuantos jugadores van a jugar? (Entre 2 y 5): ");
-        } while (this.numOfPlayers < 2 || this.numOfPlayers > 5);
-        players = new Player[this.numOfPlayers];
-        for (int i = 0; i < this.numOfPlayers; i++) {
-            Player player = new Player(iu.readString("Nombre del jugador " + (i + 1) + " : "));
-            this.players[i] = player;
-        }
-
         this.deckOfCards.shuffle();
         shareCards();
         this.table.pushCard(this.deckOfCards.popCard());
-
         showGameState();
+    }
+    
+    public Player[] createPlayers() {
+        String[] names = iu.getPlayersData();
+        this.numOfPlayers = names.length;
+        
+        Player[] players = new Player[this.numOfPlayers];
+        
+        for (int i = 0; i < this.numOfPlayers; i++) {
+            this.players[i] = new Player(names[i]);
+        }
+        
+        return players;
     }
     
     public void showGameState(){
