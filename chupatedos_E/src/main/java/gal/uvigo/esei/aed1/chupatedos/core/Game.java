@@ -32,21 +32,27 @@ public class Game {
         }
 
         this.deckOfCards.shuffle();
-
-        for (int i = 0; i < this.numOfPlayers; i++) {
-            for (int j = 0; j < 7; j++) {
-                this.players[i].addCard(this.deckOfCards.popCard());
-            }
-        }
-
+        shareCards();
         this.table.pushCard(this.deckOfCards.popCard());
 
+        showGameState();
+    }
+    
+    public void showGameState(){
         iu.displayMessage("Carta sobre la mesa: " + this.table.getFaceUpCard());
         iu.displayMessage("Número de cartas boca arriba: " + table.getNumCardsTable());
         iu.displayMessage("Cartas restantes sin repartir: " + deckOfCards.getSize());
         iu.displayMessage("Cartas de los jugadores:\n" + playersHand());
     }
 
+    public void shareCards(){
+        for (int i = 0; i < this.numOfPlayers; i++) {
+            for (int j = 0; j < 7; j++) {
+                this.players[i].addCard(this.deckOfCards.popCard());
+            }
+        }
+    }
+    
     public int getNumOfPlayers() {
         return numOfPlayers;
     }
