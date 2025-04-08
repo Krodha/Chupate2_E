@@ -15,7 +15,7 @@ public class IU {
     private final Scanner keyboard;
 
     public IU() {
-        keyboard = new Scanner(System.in);
+        keyboard = new Scanner(System.in);   
     }
 
     /**
@@ -62,9 +62,25 @@ public class IU {
     public void displayMessage(String msg) {
         System.out.println(msg);
     }
-
-
     
+    public int numPlayers(){
+        int numOfPlayers;
+        
+        do {
+            numOfPlayers = readNumber("Cuantos jugadores van a jugar? (Entre 2 y 5): ");
+        } while (numOfPlayers < 2 || numOfPlayers > 5);
+        
+        return numOfPlayers; 
+    }
+            
+    public String[] getPlayersData(){
+        String[] names = new String[numPlayers()];
+        
+        for (int i= 0; i < names.length; i++) {
+            names[i] = readString("Nombre del jugador " + (i + 1) + " : ");
+        }
+        
+        return names;
+    } 
 
-    
 }
