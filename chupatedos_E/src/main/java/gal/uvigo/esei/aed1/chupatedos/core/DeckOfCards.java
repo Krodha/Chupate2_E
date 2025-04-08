@@ -5,9 +5,11 @@ import es.uvigo.esei.aed1.tads.stack.Stack;
 
 public class DeckOfCards {
 
-    private Stack<Card> deckOfCards = new LinkedStack<>();
+    private Stack<Card> deckOfCards;
 
     public DeckOfCards() {
+        this.deckOfCards = new LinkedStack<>();
+        
         for (int i = 0; i < Card.values().length; i++) {
             deckOfCards.push(Card.values()[i]);
         }
