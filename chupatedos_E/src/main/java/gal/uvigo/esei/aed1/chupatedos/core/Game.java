@@ -5,14 +5,12 @@ import gal.uvigo.esei.aed1.chupatedos.iu.IU;
 public class Game {
 
     private final IU iu;
-    private int numOfPlayers;
     private Player[] players;
     private DeckOfCards deckOfCards;
     private Table table;
 
     public Game(IU iu) {
         this.iu = iu;
-        this.numOfPlayers = 0;
         this.deckOfCards = new DeckOfCards();
         this.table = new Table();
         this.players = this.createPlayers();
@@ -30,11 +28,10 @@ public class Game {
     
     public Player[] createPlayers() {
         String[] names = iu.getPlayersData();
-        this.numOfPlayers = names.length;
         
-        Player[] players = new Player[this.numOfPlayers];
+        Player[] players = new Player[names.length];
         
-        for (int i = 0; i < this.numOfPlayers; i++) {
+        for (int i = 0; i < names.length; i++) {
             players[i] = new Player(names[i]);
         }
         
@@ -49,7 +46,7 @@ public class Game {
     }
 
     public void shareCards(){
-        for (int i = 0; i < this.numOfPlayers; i++) {
+        for (int i = 0; i < players.length; i++) {
             for (int j = 0; j < 7; j++) {
                 this.players[i].addCard(this.deckOfCards.popCard());
             }
@@ -57,7 +54,7 @@ public class Game {
     }
     
     public int getNumOfPlayers() {
-        return numOfPlayers;
+        return players.length;
     }
 
     public Player getPlayer(int pos) {
@@ -68,11 +65,9 @@ public class Game {
 
         StringBuilder cadena = new StringBuilder();
 
-        for (int i = 0; numOfPlayers > i; i++) {
+        for (int i = 0; players.length > i; i++) {
 
-            cadena.append(getPlayer(i).getName())
-                    .append(": ")
-                    .append(getPlayer(i).showCards())
+            cadena.append(getPlayer(i))
                     .append("\n");
         }
 
