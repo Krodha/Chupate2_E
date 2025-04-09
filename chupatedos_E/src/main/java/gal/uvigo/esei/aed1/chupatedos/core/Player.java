@@ -4,7 +4,6 @@ import es.uvigo.esei.aed1.tads.list.LinkedList;
 import es.uvigo.esei.aed1.tads.list.List;
 
 
-
 public class Player {
 
     private String name;
@@ -23,14 +22,19 @@ public class Player {
         cards.addLast(card);
     }
 
-    public String showCards() {
-        StringBuilder sb = new StringBuilder();
+    
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name).append(": \n\t");
+        
         for(Card crd : cards){
             sb.append(crd.toString());
         }
-
+        
         return sb.toString();
     }
 
+    
 }
