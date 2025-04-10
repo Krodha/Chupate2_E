@@ -82,5 +82,22 @@ public class IU {
         
         return names;
     } 
+    
+    public Card getSelectedCard(Player player, Card[] playableCards){
+        displayMessage("Cartas jugables: ");
+        
+        for (int i = 0; i< playableCards.length; i++){
+            displayMessage((i + 1) + "." + playableCards[i]);
+            
+        }
+        int op;
+        
+        do{
+            op = readNumber("Selecciona la carta que quieres jugar: ");
+        }while (op < 1 || op > playableCards.length);
+        
+        return playableCards [op - 1];
+        
+    }
 
 }
