@@ -8,12 +8,14 @@ public class Game {
     private Player[] players;
     private DeckOfCards deckOfCards;
     private Table table;
+    private int activePlayer;
 
     public Game(IU iu) {
         this.iu = iu;
         this.deckOfCards = new DeckOfCards();
         this.table = new Table();
         this.players = this.createPlayers();
+        this.activePlayer = 0;
     }
 
     /**
@@ -53,12 +55,21 @@ public class Game {
         }
     }
     
+    
     public int getNumOfPlayers() {
         return players.length;
     }
 
     public Player getPlayer(int pos) {
         return players[pos];
+    }
+    
+    private int getNextPlayer() {
+        if (this.activePlayer == 0) {
+            return this.players.length - 1;
+        }
+        
+        return this.activePlayer - 1;
     }
 
     public String playersHand() {
