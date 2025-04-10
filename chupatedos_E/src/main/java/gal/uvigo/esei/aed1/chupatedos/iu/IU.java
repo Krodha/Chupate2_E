@@ -1,13 +1,13 @@
 package gal.uvigo.esei.aed1.chupatedos.iu;
 
+import es.uvigo.esei.aed1.tads.list.List;
+import es.uvigo.esei.aed1.tads.stack.LinkedStack;
 import gal.uvigo.esei.aed1.chupatedos.core.Card;
 import gal.uvigo.esei.aed1.chupatedos.core.DeckOfCards;
 import gal.uvigo.esei.aed1.chupatedos.core.Player;
 import gal.uvigo.esei.aed1.chupatedos.core.Suit;
 import gal.uvigo.esei.aed1.chupatedos.core.Table;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 public class IU {
@@ -79,25 +79,37 @@ public class IU {
         for (int i= 0; i < names.length; i++) {
             names[i] = readString("Nombre del jugador " + (i + 1) + " : ");
         }
-        
         return names;
     } 
     
-    public Card getSelectedCard(Player player, Card[] playableCards){
-        displayMessage("Cartas jugables: ");
-        
-        for (int i = 0; i< playableCards.length; i++){
-            displayMessage((i + 1) + "." + playableCards[i]);
-            
+    public void showPlayableCards(Player player, Card card){
+        displayMessage("Cartas jugables del jugador" + player.getName() + " :");
+        List <Card> card1 = player.getPlayableCards(card);
+        for(int i = 0; i < card1.size(); i++){
+            displayMessage((i+1) + ".- " + card1.get(i) );
         }
+        
+    }
+    
+    public Card getSelectedCard(Player player, Card topCard){
+        
+        showPlayableCards(player,topCard);
+        
+        List <Card> playableCards = player.getPlayableCards(topCard);
+        
+        if (playableCards.isEmpty()){
+            System.out.println("No tienes cartas jugables. Debes robar o pasar turno");
+            return null;
+        }
+        
         int op;
         
         do{
-            op = readNumber("Selecciona la carta que quieres jugar: ");
-        }while (op < 1 || op > playableCards.length);
+            op = readNumber ("Selecciona la carta que quieres jugar");
+           
+        }while (op > 1 || op < playableCards.size());
         
-        return playableCards [op - 1];
-        
+        return playableCards.get(op - 1);
+      
     }
-
 }
