@@ -57,6 +57,10 @@ public enum Card {
   public Suit getSuit() {
     return this.suit;
   }
+  
+  boolean isPlayable (Card card){
+      return (this.getNumber() == card.getNumber() || this.getSuit() == card.getSuit());
+  }
 
 
   @Override
