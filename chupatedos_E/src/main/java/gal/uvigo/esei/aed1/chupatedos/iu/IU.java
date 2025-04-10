@@ -1,13 +1,13 @@
 package gal.uvigo.esei.aed1.chupatedos.iu;
 
+import es.uvigo.esei.aed1.tads.list.List;
+import es.uvigo.esei.aed1.tads.stack.LinkedStack;
 import gal.uvigo.esei.aed1.chupatedos.core.Card;
 import gal.uvigo.esei.aed1.chupatedos.core.DeckOfCards;
 import gal.uvigo.esei.aed1.chupatedos.core.Player;
 import gal.uvigo.esei.aed1.chupatedos.core.Suit;
 import gal.uvigo.esei.aed1.chupatedos.core.Table;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 public class IU {
@@ -79,8 +79,15 @@ public class IU {
         for (int i= 0; i < names.length; i++) {
             names[i] = readString("Nombre del jugador " + (i + 1) + " : ");
         }
-        
         return names;
     } 
-
+    
+    public void showPlayableCards(Player player, Card card){
+        displayMessage("Cartas jugables del jugador" + player.getName() + " :");
+        List <Card> card1 = player.getPlayableCards(card);
+        for(int i = 0; i < card1.size(); i++){
+            displayMessage((i+1) + ".- " + card1.get(i) );
+        }
+        
+    }
 }
