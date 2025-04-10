@@ -25,7 +25,55 @@ public class Game {
         this.deckOfCards.shuffle();
         shareCards();
         this.table.pushCard(this.deckOfCards.popCard());
-        showGameState();
+        
+        while (this.getWinner() == -1) {
+            this.showGameState();
+            this.playersTurn();
+            this.activePlayer = this.getNextPlayer();
+        }
+        
+        this.iu.displayMessage("El ganador es " + this.players[this.getWinner()].getName() + "!");
+    }
+    
+    private int getWinner() {
+        for (int i = 0; i < this.players.length; i++) {
+            if (this.players[i].getNumCards() == 0) return i;
+        }
+        
+        return -1;
+    }
+    
+    private void playersTurn() {
+        Player currentPlayer = this.players[this.activePlayer];
+        Card tableTopCard = this.table.getFaceUpCard();
+        
+        this.iu.displayMessage(currentPlayer.toString());
+        
+        if (currentPlayer.getPlayableCards(tableTopCard).size() > 0) {
+            Card selectedCard = this.iu.getSelectedCard(currentPlayer, tableTopCard);
+            
+            this.table.pushCard(selectedCard);
+            currentPlayer.removeCard(selectedCard);
+        } else {
+            Card newCard = this.deckOfCards.popCard();
+            
+            if (newCard.isPlayable(tableTopCard)) {
+                this.table.pushCard(newCard);
+            } else {
+                currentPlayer.addCard(newCard);
+            }
+        }
+        
+        if (this.deckOfCards.getSize() == 0) {
+            Card faceUpCard = this.table.popCard();
+            
+            while (!this.table.isEmpty()) {
+                this.deckOfCards.addCard(this.table.popCard());
+            }
+            
+            this.table.pushCard(faceUpCard);
+            this.deckOfCards.shuffle();
+        }
     }
     
     public Player[] createPlayers() {
@@ -41,10 +89,12 @@ public class Game {
     }
     
     public void showGameState(){
+        iu.displayMessage("=============================================================> ESTADO DEL JUEGO <=====================================================");
         iu.displayMessage("Carta sobre la mesa: " + this.table.getFaceUpCard());
-        iu.displayMessage("Número de cartas boca arriba: " + table.getNumCardsTable());
+        iu.displayMessage("Numero de cartas boca arriba: " + table.getNumCardsTable());
         iu.displayMessage("Cartas restantes sin repartir: " + deckOfCards.getSize());
         iu.displayMessage("Cartas de los jugadores:\n" + playersHand());
+        iu.displayMessage("======================================================================================================================================");
     }
 
     public void shareCards(){

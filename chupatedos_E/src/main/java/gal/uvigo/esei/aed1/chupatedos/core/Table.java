@@ -21,6 +21,10 @@ public class Table {
     public void pushCard(Card card) {
         this.cards.push(card);
     }
+    
+    public Card popCard() {
+        return this.cards.pop();
+    }
 
     public Card getFaceUpCard() {
         return this.cards.top();

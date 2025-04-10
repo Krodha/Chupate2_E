@@ -26,13 +26,20 @@ public class Player {
         List<Card> playableCards = new LinkedList<>();
         
         for(Card crd : cards){
-            if (crd.getSuit().equals(cardToPlay.getSuit()) || crd.getNumber() == cardToPlay.getNumber()) {
+            if (crd.isPlayable(cardToPlay)) {
                 playableCards.addLast(crd);
             }
         }
         return playableCards;
     }
     
+    public void removeCard(Card card) {
+        this.cards.removeValue(card);
+    }
+    
+    public int getNumCards() {
+        return this.cards.size();
+    }
 
     @Override
     public String toString() {

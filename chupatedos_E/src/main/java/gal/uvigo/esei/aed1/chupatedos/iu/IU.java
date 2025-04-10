@@ -83,10 +83,10 @@ public class IU {
     } 
     
     public void showPlayableCards(Player player, Card card){
-        displayMessage("Cartas jugables del jugador" + player.getName() + " :");
+        displayMessage("\nCartas jugables del jugador " + player.getName() + ": ");
         List <Card> card1 = player.getPlayableCards(card);
         for(int i = 0; i < card1.size(); i++){
-            displayMessage((i+1) + ".- " + card1.get(i) );
+            displayMessage("\t" + (i+1) + ".- " + card1.get(i) );
         }
         
     }
@@ -98,16 +98,16 @@ public class IU {
         List <Card> playableCards = player.getPlayableCards(topCard);
         
         if (playableCards.isEmpty()){
-            System.out.println("No tienes cartas jugables. Debes robar o pasar turno");
+            displayMessage("No tienes cartas jugables. Debes robar o pasar turno");
             return null;
         }
         
         int op;
         
         do{
-            op = readNumber ("Selecciona la carta que quieres jugar");
+            op = readNumber ("Selecciona la carta que quieres jugar: ");
            
-        }while (op > 1 || op < playableCards.size());
+        }while (op < 1 || op > playableCards.size());
         
         return playableCards.get(op - 1);
       

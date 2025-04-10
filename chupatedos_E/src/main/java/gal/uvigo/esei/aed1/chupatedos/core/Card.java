@@ -59,7 +59,7 @@ public enum Card {
   }
   
   boolean isPlayable (Card card){
-      return (this.getNumber() == card.getNumber() || this.getSuit() == card.getSuit());
+      return (this.getNumber() == card.getNumber() || this.getSuit().equals(card.getSuit()));
   }
 
 
