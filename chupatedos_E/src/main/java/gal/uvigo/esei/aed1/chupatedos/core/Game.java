@@ -26,69 +26,99 @@ public class Game {
         shareCards();
         this.table.pushCard(this.deckOfCards.popCard());
         
+        if (this.table.getFaceUpCard().getNumber() == 2) {
+            this.iu.displayMessage("¡Vaya! Hoy no es tu dia de suerte " + this.players[this.activePlayer].getName() + ". ¡Chupate DOS!");
+        }
+
         while (this.getWinner() == -1) {
             this.showGameState();
             this.playersTurn();
             this.activePlayer = this.getNextPlayer();
         }
-        
+
         this.iu.displayMessage("El ganador es " + this.players[this.getWinner()].getName() + "!");
     }
-    
+
+    private void restartDeckOfCards() {
+        Card faceUpCard = this.table.popCard();
+
+        while (!this.table.isEmpty()) {
+            this.deckOfCards.addCard(this.table.popCard());
+        }
+
+        this.table.pushCard(faceUpCard);
+        this.deckOfCards.shuffle();
+    }
+
     private int getWinner() {
         for (int i = 0; i < this.players.length; i++) {
-            if (this.players[i].getNumCards() == 0) return i;
+            if (this.players[i].getNumCards() == 0) {
+                return i;
+            }
         }
-        
+
         return -1;
     }
-    
+
     private void playersTurn() {
         Player currentPlayer = this.players[this.activePlayer];
         Card tableTopCard = this.table.getFaceUpCard();
-        
+
         this.iu.displayMessage(currentPlayer.toString());
-        
-        if (currentPlayer.getPlayableCards(tableTopCard).size() > 0) {
-            Card selectedCard = this.iu.getSelectedCard(currentPlayer, tableTopCard);
+
+        if (tableTopCard.getNumber() == 2) {
+            currentPlayer.addCard(this.drawCard());
+            currentPlayer.addCard(this.drawCard());
             
+        } else if (currentPlayer.getPlayableCards(tableTopCard).size() > 0) {
+            Card selectedCard = this.iu.getSelectedCard(currentPlayer, tableTopCard);
+
             this.table.pushCard(selectedCard);
             currentPlayer.removeCard(selectedCard);
-        } else {
-            Card newCard = this.deckOfCards.popCard();
             
+            if (selectedCard.getNumber() == 2) {
+                this.iu.displayMessage("¡El jugador " + currentPlayer.getName() + " obligo a " + this.players[this.getNextPlayer()].getName() + " a comerse un Chupate DOS!");
+            }
+        } else {            
+            Card newCard = this.drawCard();
+            
+            this.iu.displayMessage("No tienes cartas jugables. Has cogido la carta " + newCard);
+
             if (newCard.isPlayable(tableTopCard)) {
+                this.iu.displayMessage("Se ha jugado la carta");
                 this.table.pushCard(newCard);
+                
+                if (newCard.getNumber() == 2) {
+                    this.iu.displayMessage("¡El jugador " + currentPlayer.getName() + " obligo a " + this.players[this.getNextPlayer()].getName() + " a comerse un Chupate DOS!");
+                }
             } else {
+                this.iu.displayMessage("No se ha podido jugar la carta");
                 currentPlayer.addCard(newCard);
             }
         }
-        
-        if (this.deckOfCards.getSize() == 0) {
-            Card faceUpCard = this.table.popCard();
-            
-            while (!this.table.isEmpty()) {
-                this.deckOfCards.addCard(this.table.popCard());
-            }
-            
-            this.table.pushCard(faceUpCard);
-            this.deckOfCards.shuffle();
-        }
     }
     
-    public Player[] createPlayers() {
+    private Card drawCard() {
+        if (this.deckOfCards.getSize() == 0) {
+            this.restartDeckOfCards();
+        }
+            
+        return this.deckOfCards.popCard();
+    }
+
+    private Player[] createPlayers() {
         String[] names = iu.getPlayersData();
-        
+
         Player[] players = new Player[names.length];
-        
+
         for (int i = 0; i < names.length; i++) {
             players[i] = new Player(names[i]);
         }
-        
+
         return players;
     }
-    
-    public void showGameState(){
+
+    public void showGameState() {
         iu.displayMessage("=============================================================> ESTADO DEL JUEGO <=====================================================");
         iu.displayMessage("Carta sobre la mesa: " + this.table.getFaceUpCard());
         iu.displayMessage("Numero de cartas boca arriba: " + table.getNumCardsTable());
@@ -97,15 +127,14 @@ public class Game {
         iu.displayMessage("======================================================================================================================================");
     }
 
-    public void shareCards(){
+    public void shareCards() {
         for (int i = 0; i < players.length; i++) {
             for (int j = 0; j < 7; j++) {
                 this.players[i].addCard(this.deckOfCards.popCard());
             }
         }
     }
-    
-    
+
     public int getNumOfPlayers() {
         return players.length;
     }
@@ -113,12 +142,12 @@ public class Game {
     public Player getPlayer(int pos) {
         return players[pos];
     }
-    
+
     private int getNextPlayer() {
         if (this.activePlayer == 0) {
             return this.players.length - 1;
         }
-        
+
         return this.activePlayer - 1;
     }
 
