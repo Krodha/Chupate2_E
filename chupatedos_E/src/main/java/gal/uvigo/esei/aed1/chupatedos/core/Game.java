@@ -9,6 +9,8 @@ public class Game {
     private DeckOfCards deckOfCards;
     private Table table;
     private int activePlayer;
+    private boolean isPreviousCardTwo;
+    private boolean isClockWise;
 
     public Game(IU iu) {
         this.iu = iu;
@@ -16,6 +18,8 @@ public class Game {
         this.table = new Table();
         this.players = this.createPlayers();
         this.activePlayer = 0;
+        this.isPreviousCardTwo = false;
+        this.isClockWise = false;
     }
 
     /**
@@ -27,7 +31,10 @@ public class Game {
         this.table.pushCard(this.deckOfCards.popCard());
         
         if (this.table.getFaceUpCard().getNumber() == 2) {
-            this.iu.displayMessage("¡Vaya! Hoy no es tu dia de suerte " + this.players[this.activePlayer].getName() + ". ¡Chupate DOS!");
+            this.iu.displayMessage("Vaya! Hoy no es tu dia de suerte " + this.players[this.activePlayer].getName() + ". Chupate DOS!");
+        } else if (this.table.getFaceUpCard().getNumber() == 7) {
+            this.iu.displayMessage("Vaya! Hoy no es tu dia de suerte " + this.players[this.activePlayer].getName() + ". Perdiste el turno y se cambia el sentido!");
+            this.isClockWise = !this.isClockWise;
         }
 
         while (this.getWinner() == -1) {
@@ -64,22 +71,28 @@ public class Game {
         Player currentPlayer = this.players[this.activePlayer];
         Card tableTopCard = this.table.getFaceUpCard();
 
-        this.iu.displayMessage(currentPlayer.toString());
-
-        if (tableTopCard.getNumber() == 2) {
+        if (!this.isPreviousCardTwo && tableTopCard.getNumber() == 2) {
             currentPlayer.addCard(this.drawCard());
             currentPlayer.addCard(this.drawCard());
-            
+            this.isPreviousCardTwo = true;
+            this.iu.displayMessage("Turno de " + currentPlayer.toString());
         } else if (currentPlayer.getPlayableCards(tableTopCard).size() > 0) {
+            this.iu.displayMessage("Turno de " + currentPlayer.toString());
             Card selectedCard = this.iu.getSelectedCard(currentPlayer, tableTopCard);
 
             this.table.pushCard(selectedCard);
             currentPlayer.removeCard(selectedCard);
             
             if (selectedCard.getNumber() == 2) {
-                this.iu.displayMessage("¡El jugador " + currentPlayer.getName() + " obligo a " + this.players[this.getNextPlayer()].getName() + " a comerse un Chupate DOS!");
+                this.iu.displayMessage("El jugador " + currentPlayer.getName() + " obligo a " + this.players[this.getNextPlayer()].getName() + " a comerse un Chupate DOS!");
+            } else if (selectedCard.getNumber() == 7) {
+                this.iu.displayMessage("Cambio de sentido!");
+                this.isClockWise = !this.isClockWise;
             }
-        } else {            
+            
+            if (this.isPreviousCardTwo) this.isPreviousCardTwo = false;
+        } else {
+            this.iu.displayMessage("Turno de " + currentPlayer.toString());
             Card newCard = this.drawCard();
             
             this.iu.displayMessage("No tienes cartas jugables. Has cogido la carta " + newCard);
@@ -89,12 +102,17 @@ public class Game {
                 this.table.pushCard(newCard);
                 
                 if (newCard.getNumber() == 2) {
-                    this.iu.displayMessage("¡El jugador " + currentPlayer.getName() + " obligo a " + this.players[this.getNextPlayer()].getName() + " a comerse un Chupate DOS!");
+                    this.iu.displayMessage("El jugador " + currentPlayer.getName() + " obligo a " + this.players[this.getNextPlayer()].getName() + " a comerse un Chupate DOS!");
+                } else if (newCard.getNumber() == 7) {
+                    this.iu.displayMessage("Cambio de sentido!");
+                    this.isClockWise = !this.isClockWise;
                 }
             } else {
                 this.iu.displayMessage("No se ha podido jugar la carta");
                 currentPlayer.addCard(newCard);
             }
+            
+            if (this.isPreviousCardTwo) this.isPreviousCardTwo = false;
         }
     }
     
@@ -144,11 +162,19 @@ public class Game {
     }
 
     private int getNextPlayer() {
-        if (this.activePlayer == 0) {
-            return this.players.length - 1;
-        }
+        if (!this.isClockWise) {
+            if (this.activePlayer == 0) {
+                return this.players.length - 1;
+            }
 
-        return this.activePlayer - 1;
+            return this.activePlayer - 1;
+        } else {
+            if (this.activePlayer == this.players.length - 1) {
+                return 0;
+            }
+            
+            return this.activePlayer + 1;
+        }
     }
 
     public String playersHand() {
