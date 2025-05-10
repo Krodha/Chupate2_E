@@ -108,12 +108,12 @@ public class Game {
                     this.iu.displayMessage("Cambio de sentido!");
                     this.isClockWise = !this.isClockWise;
                 }
+                
+                if (this.isPreviousCardTwo) this.isPreviousCardTwo = false;
             } else {
                 this.iu.displayMessage("No se ha podido jugar la carta");
                 currentPlayer.addCard(newCard);
             }
-            
-            if (this.isPreviousCardTwo) this.isPreviousCardTwo = false;
         }
     }
     
