@@ -35,6 +35,7 @@ public class Game {
         } else if (this.table.getFaceUpCard().getNumber() == 7) {
             this.iu.displayMessage("Vaya! Hoy no es tu dia de suerte " + this.players[this.activePlayer].getName() + ". Perdiste el turno y se cambia el sentido!");
             this.isClockWise = !this.isClockWise;
+            this.activePlayer = this.getNextPlayer();
         }
 
         while (this.getWinner() == -1) {
