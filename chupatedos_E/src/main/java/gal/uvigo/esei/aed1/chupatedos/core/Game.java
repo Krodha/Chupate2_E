@@ -30,12 +30,12 @@ public class Game {
         
 
         if (this.table.getFaceUpCard().getNumber() == 2) {
-            this.iu.displayMessage("\n\t\t\t\tVaya! Hoy no es tu dia de suerte " + this.players[this.activePlayer].getName() + ". Chupate DOS!");
-            this.players[this.activePlayer].addCard(this.drawCard());
-            this.players[this.activePlayer].addCard(this.drawCard());
+            this.iu.displayMessage("\n\t\t\t\tVaya! Hoy no es tu dia de suerte " + this.getCurrentPlayer().getName() + ". Chupate DOS!");
+            this.getCurrentPlayer().addCard(this.drawCard());
+            this.getCurrentPlayer().addCard(this.drawCard());
             this.activePlayer = this.getNextPlayer();
         } else if (this.table.getFaceUpCard().getNumber() == 7) {
-            this.iu.displayMessage("\n\t\t\t\tVaya! Hoy no es tu dia de suerte " + this.players[this.activePlayer].getName() + ". Perdiste el turno y se cambia el sentido!");
+            this.iu.displayMessage("\n\t\t\t\tVaya! Hoy no es tu dia de suerte " + this.getCurrentPlayer().getName() + ". Perdiste el turno y se cambia el sentido!");
             this.isClockwise = !this.isClockwise;
             this.activePlayer = this.getNextPlayer();
         }
@@ -72,28 +72,19 @@ public class Game {
     }
 
     private void playersTurn() {
-        Player currentPlayer = this.players[this.activePlayer];
+        Player currentPlayer = this.getCurrentPlayer();
         Card tableTopCard = this.table.getFaceUpCard();
+        
+        this.iu.displayMessage("\nTurno de " + currentPlayer.toString());
 
         if (currentPlayer.getPlayableCards(tableTopCard).size() > 0) {
-            this.iu.displayMessage("\nTurno de " + currentPlayer.toString());
             Card selectedCard = this.iu.getSelectedCard(currentPlayer, tableTopCard);
 
             this.table.pushCard(selectedCard);
             currentPlayer.removeCard(selectedCard);
 
-            if (selectedCard.getNumber() == 2) {
-                this.iu.displayMessage("\n\t\t\t\tEl jugador " + currentPlayer.getName() + " obligo a " + this.players[this.getNextPlayer()].getName() + " a comerse un Chupate DOS!");
-                activePlayer = this.getNextPlayer();
-                currentPlayer = this.players[activePlayer];
-                currentPlayer.addCard(this.drawCard());
-                currentPlayer.addCard(this.drawCard());
-            } else if (selectedCard.getNumber() == 7) {
-                this.iu.displayMessage("\n\t\t\t\tCambio de sentido!");
-                this.isClockwise = !this.isClockwise;
-            }
+            this.processCard(selectedCard);
         } else {
-            this.iu.displayMessage("Turno de " + currentPlayer.toString());
             Card newCard = this.drawCard();
 
             this.iu.displayMessage("\n\t\t\t\tNo tienes cartas jugables. Has cogido la carta " + newCard);
@@ -102,20 +93,23 @@ public class Game {
                 this.iu.displayMessage("\n\t\t\t\tSe ha jugado la carta");
                 this.table.pushCard(newCard);
 
-                if (newCard.getNumber() == 2) {
-                    this.iu.displayMessage("\n\t\t\t\tEl jugador " + currentPlayer.getName() + " obligo a " + this.players[this.getNextPlayer()].getName() + " a comerse un Chupate DOS!");
-                    activePlayer = this.getNextPlayer();
-                    currentPlayer = this.players[activePlayer];
-                    currentPlayer.addCard(this.drawCard());
-                    currentPlayer.addCard(this.drawCard());
-                } else if (newCard.getNumber() == 7) {
-                    this.iu.displayMessage("\n\t\t\t\tCambio de sentido!");
-                    this.isClockwise = !this.isClockwise;
-                }
+                this.processCard(newCard);
             } else {
                 this.iu.displayMessage("\n\t\t\t\tNo se ha podido jugar la carta");
                 currentPlayer.addCard(newCard);
             }
+        }
+    }
+    
+    private void processCard(Card newCard) {
+        if (newCard.getNumber() == 2) {
+            this.iu.displayMessage("\n\t\t\t\tEl jugador " + this.getCurrentPlayer().getName() + " obligo a " + this.getPlayer(this.getNextPlayer()).getName() + " a comerse un Chupate DOS!");
+            this.activePlayer = this.getNextPlayer();
+            this.getCurrentPlayer().addCard(this.drawCard());
+            this.getCurrentPlayer().addCard(this.drawCard());
+        } else if (newCard.getNumber() == 7) {
+            this.iu.displayMessage("\n\t\t\t\tCambio de sentido!");
+            this.isClockwise = !this.isClockwise;
         }
     }
 
@@ -160,8 +154,12 @@ public class Game {
         return players.length;
     }
 
-    public Player getPlayer(int pos) {
+    private Player getPlayer(int pos) {
         return players[pos];
+    }
+    
+    private Player getCurrentPlayer() {
+        return this.players[this.activePlayer];
     }
 
     private int getNextPlayer() {
